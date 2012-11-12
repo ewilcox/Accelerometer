@@ -1,12 +1,14 @@
 Parse.initialize("NEYolN8G2CaKtAPYcaeYX0nrSrP5tbhQ1bcwB16a", "N2kyDwAWWPx8Jg1azm8ifeJ6fYzF6DHpfmhVWQJc");
 var AccelObject = Parse.Object.extend("AccelObject"),
+	query = new Parse.Query(AccelObject),
 	on,
 	count = 0,
 	x,y,z, newY,
 	timestamp,
 	watchID = null,
 	$data,
-	data;
+	data,
+	$items;
 
 function isOn() {
 	if (on) { return "ON"; }
@@ -70,7 +72,6 @@ function onDeviceReady() {
 		writeStatus();
 		stopWatch();
 		data.save({ count:count });
-		alert(count);
     });
 	$("#newButton").click( function() {
 		count = 0;
@@ -83,8 +84,24 @@ function onDeviceReady() {
 	$("#testButton").click( function() {
 		alert("Count: " + count + " - " + data);
     });
+	$("#getDataButton").click( function() {
+		document.location.href='#page2';
+		$items = $('items');
+		var testObj = data.get("count");
+		alert(testObj);
+//		query.find({
+//			  success: function(results) {
+//				  for (var i=0; i<results.length; i++) {
+//					  alert($items.append(query[i].get('createdAt')));
+//				  }
+//				  //alert("Successfully retrieved " + results.length + " counts.");
+//			  },
+//			  error: function(error) {
+//			    alert("Error: " + error.code + " " + error.message);
+//			  }
+//			});
+	});
 }
-
 
 function init() {
     document.addEventListener("deviceready", onDeviceReady, true);

@@ -5,7 +5,8 @@ var AccelObject = Parse.Object.extend("AccelObject"),
 	x,y,z, newY,
 	timestamp,
 	watchID = null,
-	$data;
+	$data,
+	data;
 
 function isOn() {
 	if (on) { return "ON"; }
@@ -29,7 +30,7 @@ function onError() {
 function writeStatus() {
 	var output="",
 		state = "";
-		if (on) { state = '<span style="font-weight:bold; color:red;">' + isOn() + '</span>'; }
+		if (on) { state = '<span style="font-weight:bold; font-size:20px; color:red;">' + isOn() + '</span>'; }
 		else { state = isOn(); }
 	
 	output += '<p>Accelerometer is currently ' + state +'.</p>';
@@ -52,35 +53,36 @@ function stopWatch() {
 }
 
 function onDeviceReady() {
-	var data = new AccelObject();
+	if (data===undefined) { data = new AccelObject(); }
 	$data = $('#myData');
-	
-	on = false;
+	if (on === null) { on = false; }
 	$(document).ready(function() {
 		writeStatus();
 	});
-	//data.save( { test:"data1", test2:"data2" } );
-	
-	$("#startButton").click( function()
-        {
-			on = true;
-			writeStatus();
-			$data.html();
-		    startWatch();
-        });
-	$("#stopButton").click( function()
-        {
-			on = false;
-			writeStatus();
-			stopWatch();
-			
-        });
-	$("#newButton").click( function()
-	        {
-				on = false;
-				writeStatus();
-				$("#status").append("NEW data set created");
-	        });
+	$("#startButton").click( function() {
+		on = true;
+		writeStatus();
+		$data.html();
+	    startWatch();
+    });
+	$("#stopButton").click( function() {
+		on = false;
+		writeStatus();
+		stopWatch();
+		data.save({ count:count });
+		alert(count);
+    });
+	$("#newButton").click( function() {
+		count = 0;
+		data = new AccelObject();
+		on = false;
+		stopWatch();
+		writeStatus();
+		$("#status").append("NEW data set created");
+    });
+	$("#testButton").click( function() {
+		alert("Count: " + count + " - " + data);
+    });
 }
 
 

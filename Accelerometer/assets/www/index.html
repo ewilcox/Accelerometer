@@ -21,8 +21,8 @@
 			<h2>Home Page</h2>
 			<a data-role="button" id="startButton">START</a>
 			<a data-role="button" id="stopButton">STOP</a>
-			<a data-role="button" href="#page2">NEW</a>
-			<a data-role="button" href="#page2">DATA</a>
+			<a data-role="button" id="newButton">NEW</a>
+			<a data-role="button" href="#page3">DATA</a>
 			<br><br>
 			<div id="status"></div>
 		</div>
@@ -31,18 +31,26 @@
 
 <!-- Page 2 Records -->		
 		<div data-role="page" id="page2">
-		<div data-role="header" data-id="myheader" data-position="fixed"><div><h4 class="appTitle">Accelerometer</h4></div></div>
+		<div data-role="header" data-id="myheader" data-position="fixed">
+			<a href="#page1" data-role="button" data-transition="none" data-direction="reverse">Back</a>
+			<h4 class="appTitle">Accelerometer</h4>
+		</div>
 		<div data-role="content" id="" class="myContent">
 			<h2>Records Page</h2>
+			
 		</div>
 		<div data-role="footer" data-id="myfooter" data-position="fixed"></div>
 		</div>
 		
 <!-- Page 3 Data -->
 		<div data-role="page" id="page3">
-		<div data-role="header" data-id="myheader" data-position="fixed"><div><h4 class="appTitle">Accelerometer</h4></div></div>
+		<div data-role="header" data-id="myheader" data-position="fixed">
+			<a href="#page1" data-role="button" data-transition="none" data-direction="reverse">Back</a>
+			<h4 class="appTitle">Accelerometer</h4>
+		</div>
 		<div data-role="content" id="" class="myContent">
 			<h2>Data Page</h2>
+			<div id="myData"><p>placeholder</p></div>
 		</div>
 		<div data-role="footer" data-id="myfooter" data-position="fixed"></div>
 		</div>

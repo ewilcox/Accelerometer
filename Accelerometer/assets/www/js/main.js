@@ -1,7 +1,7 @@
 Parse.initialize("NEYolN8G2CaKtAPYcaeYX0nrSrP5tbhQ1bcwB16a", "N2kyDwAWWPx8Jg1azm8ifeJ6fYzF6DHpfmhVWQJc");
 var AccelObject = Parse.Object.extend("AccelObject"),
 	query = new Parse.Query(AccelObject),
-	on,
+	on, i,
 	count = 0,
 	x,y,z, newY,
 	timestamp,
@@ -86,20 +86,20 @@ function onDeviceReady() {
     });
 	$("#getDataButton").click( function() {
 		document.location.href='#page2';
+		var output = "";
 		$items = $('items');
-		var testObj = data.get("count");
-		alert(testObj);
-//		query.find({
-//			  success: function(results) {
-//				  for (var i=0; i<results.length; i++) {
-//					  alert($items.append(query[i].get('createdAt')));
-//				  }
-//				  //alert("Successfully retrieved " + results.length + " counts.");
-//			  },
-//			  error: function(error) {
-//			    alert("Error: " + error.code + " " + error.message);
-//			  }
-//			});
+		query.find({
+			  success: function(results) {
+				  for (i=0; i<results.length; i++) {
+					  //output += results[i].get("createdAt");
+					  alert(results[i].get("count"));
+				  }
+				  //alert("Successfully retrieved " + results.length + " records.");
+			  },
+			  error: function(error) {
+			    alert("Error: " + error.code + " " + error.message);
+			  }
+			});
 	});
 }
 

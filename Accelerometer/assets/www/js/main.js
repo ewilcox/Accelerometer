@@ -1,6 +1,7 @@
 Parse.initialize("NEYolN8G2CaKtAPYcaeYX0nrSrP5tbhQ1bcwB16a", "N2kyDwAWWPx8Jg1azm8ifeJ6fYzF6DHpfmhVWQJc");
 var AccelObject = Parse.Object.extend("AccelObject"),
 	query = new Parse.Query(AccelObject),
+	queryData = new Parse.Query(AccelObject),
 	on, i,
 	count = 0,
 	x,y,z, newY,
@@ -8,7 +9,8 @@ var AccelObject = Parse.Object.extend("AccelObject"),
 	watchID = null,
 	$data,
 	data,
-	$items;
+	$items,
+	qId, qCount, qDate;
 
 function isOn() {
 	if (on) { return "ON"; }
@@ -53,6 +55,20 @@ function stopWatch() {
         watchID = null;
     }
 }
+function displayData(obj) {
+	document.location.href='#page3';
+	queryData.get(obj.id, {
+		  success: function(r) {
+			  var output = '<h3>Query ID: '+obj.id+'</h3><h3>Date: '+r.createdAt+'</h3><h3>Phone Lifts Counted: '+r.get('count')+'</h3>';
+			  $('#myData').html(output);
+		  },
+		  error: function(object, error) {
+			  alert("error with pulling parse data: "+error);
+		    // The object was not retrieved successfully.
+		    // error is a Parse.Error with an error code and description.
+		  }
+		});
+}
 
 function onDeviceReady() {
 	if (data===undefined) { data = new AccelObject(); }
@@ -87,14 +103,19 @@ function onDeviceReady() {
 	$("#getDataButton").click( function() {
 		document.location.href='#page2';
 		var output = "";
-		$items = $('items');
+		$items = $('#items ul');
 		query.find({
 			  success: function(results) {
 				  for (i=0; i<results.length; i++) {
-					  //output += results[i].get("createdAt");
-					  alert(results[i].get("count"));
+					  qId= results[i].id;
+					  qCount = results[i].get('count');
+					  qDate = results[i].createdAt;
+					  //alert(qId);
+					  output += '<li><button id="'+qId+'" mydate="'+qDate+'" mycount="'+qCount+'" onclick="displayData(this);">'+qDate+'</button></li>';
+					  //alert(results[i].get("count"));
 				  }
 				  //alert("Successfully retrieved " + results.length + " records.");
+					$items.html(output);
 			  },
 			  error: function(error) {
 			    alert("Error: " + error.code + " " + error.message);

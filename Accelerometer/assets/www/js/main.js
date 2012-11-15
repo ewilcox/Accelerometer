@@ -98,7 +98,7 @@ function onDeviceReady() {
 		$("#status").append("NEW data set created");
     });
 	$("#testButton").click( function() {
-		alert("Count: " + count + " - " + data);
+		alert("Count: " + count);
     });
 	$("#getDataButton").click( function() {
 		document.location.href='#page2';
